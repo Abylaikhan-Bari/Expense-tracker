@@ -1,18 +1,24 @@
-import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Transaction } from './entities/transaction.entity';
+import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import {Transaction} from "./entities/transaction.entity";
 
 @Injectable()
 export class TransactionsService {
-    constructor(@InjectRepository(Transaction) private repo: Repository<Transaction>) {}
+    constructor(
+        @InjectRepository(Transaction)
+        private transactionsRepository: Repository<Transaction>,
+    ) {}
 
-    create(data: Partial<Transaction>) {
-        const transaction = this.repo.create(data);
-        return this.repo.save(transaction);
+    getAll(): Promise<Transaction[]> {
+        return this.transactionsRepository.find();
     }
 
-    findAll() {
-        return this.repo.find();
+    create(transaction: Transaction): Promise<Transaction> {
+        return this.transactionsRepository.save(transaction);
+    }
+
+    async delete(id: number): Promise<void> {
+        await this.transactionsRepository.delete(id);
     }
 }

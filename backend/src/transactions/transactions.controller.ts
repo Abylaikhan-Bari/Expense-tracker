@@ -1,18 +1,23 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
-import { TransactionsService } from './transactions.service';
-import { Transaction } from './entities/transaction.entity';
+import { Controller, Get, Post, Delete, Body, Param } from "@nestjs/common";
+import { TransactionsService } from "./transactions.service";
+import {Transaction} from "./entities/transaction.entity";
 
-@Controller('transactions')
+@Controller("transactions")
 export class TransactionsController {
     constructor(private readonly transactionsService: TransactionsService) {}
 
-    @Post()
-    create(@Body() data: Partial<Transaction>) {
-        return this.transactionsService.create(data);
+    @Get()
+    async getAll(): Promise<Transaction[]> {
+        return this.transactionsService.getAll();
     }
 
-    @Get()
-    findAll() {
-        return this.transactionsService.findAll();
+    @Post()
+    async create(@Body() transaction: Transaction): Promise<Transaction> {
+        return this.transactionsService.create(transaction);
+    }
+
+    @Delete(":id")
+    async delete(@Param("id") id: number): Promise<void> {
+        return this.transactionsService.delete(id);
     }
 }

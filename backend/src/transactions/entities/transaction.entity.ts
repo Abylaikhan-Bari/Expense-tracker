@@ -1,15 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
 @Entity()
 export class Transaction {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @CreateDateColumn()
-    dateTime: Date;
-
     @Column()
-    author: string;
+    dateTime: string;
 
     @Column("decimal")
     sum: number;
@@ -17,6 +14,9 @@ export class Transaction {
     @Column()
     category: string;
 
-    @Column({ nullable: true })
+    @Column()
     comment: string;
+
+    @Column()
+    author: string;
 }
