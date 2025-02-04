@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Pie } from "react-chartjs-2";
+import { Pie, Bar } from "react-chartjs-2";
 import "chart.js/auto";
 import { FaTrash, FaPlus } from "react-icons/fa";
 import { Transaction, getTransactions, deleteTransaction } from "../services/TransactionService";
@@ -53,55 +53,61 @@ const ExpenseDashboard: React.FC<ExpenseDashboardProps> = ({ onAddExpense }) => 
         ],
     };
 
+    const barData = {
+        labels: categories.map((cat) => cat.name),
+        datasets: [
+            {
+                label: "Expense per Category (₸)",
+                data: categories.map(
+                    (cat) => transactions.filter((tx) => tx.category === cat.name).reduce((sum, tx) => sum + tx.sum, 0)
+                ),
+                backgroundColor: categories.map((cat) => cat.color),
+            },
+        ],
+    };
+
     return (
-        <div className="w-full max-w-2xl mx-auto text-center">
-            {/* HEADER */}
-            <div className="flex justify-between items-center mb-6">
-                <h2 className="text-3xl font-semibold">Today's Spending</h2>
-                <button
-                    onClick={onAddExpense}
-                    className="bg-yellow-500 text-black px-4 py-2 rounded-md flex items-center gap-2"
-                >
+        <div className="dashboard-container">
+            <div className="header">
+                <h2>Today's Spending</h2>
+                <span className="total-spending">₸ {totalSpending}</span>
+                <button onClick={onAddExpense} className="add-expense-btn">
                     <FaPlus /> Add Expense
                 </button>
             </div>
 
-            {/* DISPLAY TOTAL SPENDING */}
-            <div className="mb-6 text-xl font-bold text-yellow-500">
-                Total Spent: ₸ {totalSpending}
-            </div>
+            <div className="dashboard-content">
+                <div className="chart-card">
+                    <h3>Expense Breakdown</h3>
+                    <Pie data={pieData} />
+                </div>
 
-            {/* PIE CHART */}
-            <div className="bg-gray-800 p-6 rounded-lg mb-8">
-                <h3 className="text-lg mb-4">Expense Breakdown</h3>
-                <Pie data={pieData} />
-            </div>
+                <div className="chart-card">
+                    <h3>Expense Per Category</h3>
+                    <Bar data={barData} />
+                </div>
 
-            {/* TRANSACTIONS LIST */}
-            <div className="bg-gray-800 p-6 rounded-lg">
-                <h3 className="text-lg mb-4">Recent Expenses</h3>
-                <ul className="space-y-4">
-                    {transactions.map((tx) => (
-                        <li key={tx.id} className="flex justify-between items-center bg-gray-700 p-4 rounded-md">
-                            <div>
-                                <span className="text-yellow-400">{tx.dateTime}</span>
-                                <span className="ml-2 text-xs px-2 py-1 bg-yellow-500 text-black rounded-md">
-                                    {tx.category}
-                                </span>
-                                <p className="text-lg font-medium">{tx.comment}</p>
+                <div className="expense-list">
+                    <h3>Recent Expenses</h3>
+
+                    <div className="expenses-container">
+                        {transactions.map((tx) => (
+                            <div key={tx.id} className="expense-card">
+                                <div className="expense-info">
+                                    <span className="expense-date">{tx.dateTime}</span>
+                                    <span className="expense-category">{tx.category}</span>
+                                    <p className="expense-comment">{tx.comment}</p>
+                                </div>
+                                <div className="expense-actions">
+                                    <span className="expense-amount">₸ {tx.sum}</span>
+                                    <button onClick={() => handleDelete(tx.id!)} className="delete-btn">
+                                        <FaTrash />
+                                    </button>
+                                </div>
                             </div>
-                            <div className="flex items-center gap-4">
-                                <span className="text-lg font-semibold">₸ {tx.sum}</span>
-                                <button
-                                    onClick={() => handleDelete(tx.id!)}
-                                    className="text-red-500 hover:text-red-700"
-                                >
-                                    <FaTrash />
-                                </button>
-                            </div>
-                        </li>
-                    ))}
-                </ul>
+                        ))}
+                    </div>
+                </div>
             </div>
         </div>
     );

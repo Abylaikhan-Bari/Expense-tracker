@@ -6,7 +6,7 @@ const App: React.FC = () => {
     const [showForm, setShowForm] = useState(false);
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white p-8">
+        <div className="app-container">
             {showForm ? (
                 <ExpenseForm onSave={() => setShowForm(false)} onCancel={() => setShowForm(false)} />
             ) : (

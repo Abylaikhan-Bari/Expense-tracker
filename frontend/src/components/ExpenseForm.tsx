@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Transaction, addTransaction } from "../services/TransactionService";
+import { Transaction, saveTransaction } from "../services/TransactionService";
 
 interface ExpenseFormProps {
-    onSave: () => void;
+    onSave: (transaction: Transaction) => void;
     onCancel: () => void;
 }
 
@@ -17,31 +17,30 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onSave, onCancel }) => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!sum) return;
+        const transaction: Transaction = { dateTime: date, sum: Number(sum), category, comment, author: "User" };
 
-        const transaction: Transaction = {
-            dateTime: date,
-            sum: Number(sum),
-            category,
-            comment,
-            author: "User",
-        };
-
-        await addTransaction(transaction);
-        onSave();
+        try {
+            await saveTransaction(transaction);
+            onSave(transaction);
+        } catch (error) {
+            console.error("Error saving transaction:", error);
+        }
     };
 
     return (
-        <div className="bg-gray-800 p-6 rounded-lg max-w-md mx-auto text-center">
-            <h3 className="text-lg mb-4 text-yellow-400">Add Expense</h3>
-            <form onSubmit={handleSubmit} className="space-y-4">
-                <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="w-full p-2 bg-gray-700 text-white" />
-                <input type="number" value={sum} onChange={(e) => setSum(Number(e.target.value))} className="w-full p-2 bg-gray-700 text-white" required />
-                <select value={category} onChange={(e) => setCategory(e.target.value)} className="w-full p-2 bg-gray-700 text-white">
+        <div className="form-card">
+            <h3>Add Expense</h3>
+            <form onSubmit={handleSubmit}>
+                <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="form-input" />
+                <input type="number" value={sum} onChange={(e) => setSum(Number(e.target.value))} required className="form-input" />
+                <select value={category} onChange={(e) => setCategory(e.target.value)} className="form-input">
                     {categories.map((cat) => <option key={cat}>{cat}</option>)}
                 </select>
-                <textarea value={comment} onChange={(e) => setComment(e.target.value)} className="w-full p-2 bg-gray-700 text-white" />
-                <button type="submit" className="bg-yellow-500 text-black w-full py-2">Save</button>
-                <button onClick={onCancel} className="bg-gray-600 text-white w-full py-2 mt-2">Cancel</button>
+                <textarea value={comment} onChange={(e) => setComment(e.target.value)} className="form-input" />
+                <div className="form-actions">
+                    <button type="submit" className="save-btn">Save</button>
+                    <button onClick={onCancel} className="cancel-btn">Cancel</button>
+                </div>
             </form>
         </div>
     );
