@@ -1,6 +1,6 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
+import { Injectable } from '@nestjs/common';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 import {Transaction} from "./entities/transaction.entity";
 
 @Injectable()
@@ -10,15 +10,20 @@ export class TransactionsService {
         private transactionsRepository: Repository<Transaction>,
     ) {}
 
-    getAll(): Promise<Transaction[]> {
+    async findAll(): Promise<Transaction[]> {
         return this.transactionsRepository.find();
     }
 
-    create(transaction: Transaction): Promise<Transaction> {
+    async create(transaction: Transaction): Promise<Transaction> {
         return this.transactionsRepository.save(transaction);
     }
 
-    async delete(id: number): Promise<void> {
+    async update(id: number, updatedTransaction: Partial<Transaction>): Promise<Transaction | null> {
+        await this.transactionsRepository.update(id, updatedTransaction);
+        return await this.transactionsRepository.findOne({ where: { id } }) || null;
+    }
+
+    async remove(id: number): Promise<void> {
         await this.transactionsRepository.delete(id);
     }
 }

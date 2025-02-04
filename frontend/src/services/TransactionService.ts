@@ -11,15 +11,16 @@ export interface Transaction {
 
 const API_URL = "http://localhost:5002/transactions";
 
-export const fetchTransactions = async (): Promise<Transaction[]> => {
+export const getTransactions = async (): Promise<Transaction[]> => {
     const { data } = await axios.get(API_URL);
     return data;
 };
 
-export const addTransaction = async (transaction: Transaction) => {
-    await axios.post(API_URL, transaction);
+export const addTransaction = async (transaction: Transaction): Promise<Transaction> => {
+    const { data } = await axios.post(API_URL, transaction);
+    return data;
 };
 
-export const deleteTransaction = async (id: number) => {
+export const deleteTransaction = async (id: number): Promise<void> => {
     await axios.delete(`${API_URL}/${id}`);
 };
