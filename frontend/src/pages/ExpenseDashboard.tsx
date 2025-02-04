@@ -73,7 +73,7 @@ const ExpenseDashboard: React.FC<ExpenseDashboardProps> = ({ onAddExpense }) => 
     return (
         <div className="dashboard-container">
             <div className="header">
-                <h2>Today's Spending</h2>
+                <h2>Total Spending</h2>
                 <span className="total-spending">₸ {totalSpending}</span>
                 <button onClick={onAddExpense} className="add-expense-btn">
                     <FaPlus /> Add Expense
