@@ -8,6 +8,7 @@
   background-color: #1e1e2f;
 }
 
+/* Global styles */
 body {
   margin: 0;
   min-width: 320px;
@@ -18,11 +19,120 @@ body {
   background-color: #121212;
 }
 
-h1, h2, h3 {
-  font-weight: 600;
-  color: #facc15;
+/* Dashboard Layout */
+.dashboard-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
 }
 
+/* Header Section */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #282c34;
+  color: #fff;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.total-spending {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: yellow;
+}
+
+.add-expense-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: yellow;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+/* Main Content Layout - Elements placed horizontally */
+.dashboard-content {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+/* Left Column (Charts) */
+.charts-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.chart-card {
+  padding: 20px;
+  background: #282c34;
+  border-radius: 10px;
+  color: white;
+}
+
+/* Right Column (Expenses) */
+.expense-list {
+  flex: 1;
+  padding: 20px;
+  background: #282c34;
+  border-radius: 10px;
+  color: white;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+/* Expense Card - Each Expense as a Separate Card */
+.expenses-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: space-between;
+}
+
+.expense-card {
+  background: #333;
+  padding: 15px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 48%;
+  min-width: 250px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Expense Details */
+.expense-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.expense-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+/* Delete Button */
+.delete-btn {
+  background-color: transparent;
+  border: none;
+  color: red;
+  cursor: pointer;
+}
+
+/* Button General Styling */
 button {
   border-radius: 8px;
   padding: 10px 16px;
@@ -37,6 +147,7 @@ button:hover {
   background-color: #eab308;
 }
 
+/* Card Styling */
 .card {
   background: #232339;
   padding: 20px;

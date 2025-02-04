@@ -5,11 +5,13 @@ body {
   height: 100vh;
   background-color: #1a1a1a;
   font-family: Arial, sans-serif;
+  margin: 0;
 }
 
 .dashboard-container {
   width: 90%;
   max-width: 1200px;
+  margin: 0 auto;
 }
 
 .header {
@@ -34,10 +36,21 @@ body {
   padding: 10px;
   border-radius: 5px;
   font-weight: bold;
+  border: none;
+  cursor: pointer;
 }
 
 .dashboard-content {
   display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+/* Left column: Charts */
+.charts-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   gap: 20px;
 }
 
@@ -49,9 +62,20 @@ body {
   color: white;
 }
 
+/* Right column: Expense List */
+.expense-list {
+  flex: 1;
+  padding: 20px;
+  background: #282c34;
+  border-radius: 10px;
+  color: white;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
 .expenses-container {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 15px;
 }
 
@@ -61,26 +85,25 @@ body {
   border-radius: 8px;
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  align-items: center;
 }
 
-.form-card {
-  background: #222;
-  padding: 20px;
-  border-radius: 10px;
+.expense-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
-.form-input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
+.expense-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+}
+
+.delete-btn {
+  background-color: transparent;
   border: none;
-}
-
-.save-btn, .cancel-btn {
-  background-color: yellow;
-  padding: 10px;
-  border-radius: 5px;
-  font-weight: bold;
+  color: red;
+  cursor: pointer;
 }

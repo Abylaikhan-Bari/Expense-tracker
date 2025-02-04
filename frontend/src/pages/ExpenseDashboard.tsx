@@ -45,8 +45,10 @@ const ExpenseDashboard: React.FC<ExpenseDashboardProps> = ({ onAddExpense }) => 
         labels: categories.map((cat) => cat.name),
         datasets: [
             {
-                data: categories.map(
-                    (cat) => transactions.filter((tx) => tx.category === cat.name).reduce((sum, tx) => sum + tx.sum, 0)
+                data: categories.map((cat) =>
+                    transactions
+                        .filter((tx) => tx.category === cat.name)
+                        .reduce((sum, tx) => sum + tx.sum, 0)
                 ),
                 backgroundColor: categories.map((cat) => cat.color),
             },
@@ -58,8 +60,10 @@ const ExpenseDashboard: React.FC<ExpenseDashboardProps> = ({ onAddExpense }) => 
         datasets: [
             {
                 label: "Expense per Category (₸)",
-                data: categories.map(
-                    (cat) => transactions.filter((tx) => tx.category === cat.name).reduce((sum, tx) => sum + tx.sum, 0)
+                data: categories.map((cat) =>
+                    transactions
+                        .filter((tx) => tx.category === cat.name)
+                        .reduce((sum, tx) => sum + tx.sum, 0)
                 ),
                 backgroundColor: categories.map((cat) => cat.color),
             },
@@ -77,19 +81,21 @@ const ExpenseDashboard: React.FC<ExpenseDashboardProps> = ({ onAddExpense }) => 
             </div>
 
             <div className="dashboard-content">
-                <div className="chart-card">
-                    <h3>Expense Breakdown</h3>
-                    <Pie data={pieData} />
+                {/* Left Column: Charts */}
+                <div className="charts-container">
+                    <div className="chart-card">
+                        <h3>Expense Breakdown</h3>
+                        <Pie data={pieData} />
+                    </div>
+                    <div className="chart-card">
+                        <h3>Expense Per Category</h3>
+                        <Bar data={barData} />
+                    </div>
                 </div>
 
-                <div className="chart-card">
-                    <h3>Expense Per Category</h3>
-                    <Bar data={barData} />
-                </div>
-
+                {/* Right Column: Recent Expenses */}
                 <div className="expense-list">
                     <h3>Recent Expenses</h3>
-
                     <div className="expenses-container">
                         {transactions.map((tx) => (
                             <div key={tx.id} className="expense-card">
