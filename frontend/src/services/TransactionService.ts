@@ -9,7 +9,7 @@ export interface Transaction {
     author: string;
 }
 
-const API_URL = "http://localhost:5002/transactions";  // Adjust if your backend runs on a different port
+const API_URL = "http://192.168.0.31:5002/transactions";
 
 export const getTransactions = async (): Promise<Transaction[]> => {
     const { data } = await axios.get(API_URL);
