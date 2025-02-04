@@ -1,109 +1,75 @@
-body {
+/* Form Container */
+.form-card {
+  background: #222;
+  padding: 25px;
+  border-radius: 10px;
+  width: 400px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  height: 100vh;
-  background-color: #1a1a1a;
-  font-family: Arial, sans-serif;
-  margin: 0;
+  color: white;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-.dashboard-container {
-  width: 90%;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  background-color: #282c34;
-  color: #fff;
-  border-radius: 8px;
-  margin-bottom: 20px;
-}
-
-.total-spending {
+/* Form Title */
+.form-title {
   font-size: 1.5rem;
   font-weight: bold;
   color: yellow;
+  margin-bottom: 20px;
 }
 
-.add-expense-btn {
-  background-color: yellow;
-  padding: 10px;
-  border-radius: 5px;
-  font-weight: bold;
-  border: none;
-  cursor: pointer;
-}
-
-.dashboard-content {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-}
-
-/* Left column: Charts */
-.charts-container {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.chart-card {
-  flex: 1;
-  padding: 20px;
-  background: #282c34;
-  border-radius: 10px;
-  color: white;
-}
-
-/* Right column: Expense List */
-.expense-list {
-  flex: 1;
-  padding: 20px;
-  background: #282c34;
-  border-radius: 10px;
-  color: white;
-  max-height: 600px;
-  overflow-y: auto;
-}
-
-.expenses-container {
+/* Form Layout */
+.form-layout {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  width: 100%;
 }
 
-.expense-card {
+/* Input and Select Styling */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
   background: #333;
-  padding: 15px;
-  border-radius: 8px;
+  color: white;
+  font-size: 1rem;
+}
+
+/* Button Group */
+.form-actions {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
 }
 
-.expense-info {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.expense-actions {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 5px;
-}
-
-.delete-btn {
-  background-color: transparent;
-  border: none;
-  color: red;
+.save-btn, .cancel-btn {
+  width: 48%;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
   cursor: pointer;
+}
+
+.save-btn {
+  background-color: yellow;
+  color: black;
+}
+
+.cancel-btn {
+  background-color: red;
+  color: white;
+}
+
+button:hover {
+  opacity: 0.9;
 }

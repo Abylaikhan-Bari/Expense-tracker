@@ -81,7 +81,7 @@ const ExpenseDashboard: React.FC<ExpenseDashboardProps> = ({ onAddExpense }) => 
             </div>
 
             <div className="dashboard-content">
-                {/* Left Column: Charts */}
+                {/* Left Column (Charts) */}
                 <div className="charts-container">
                     <div className="chart-card">
                         <h3>Expense Breakdown</h3>
@@ -93,7 +93,7 @@ const ExpenseDashboard: React.FC<ExpenseDashboardProps> = ({ onAddExpense }) => 
                     </div>
                 </div>
 
-                {/* Right Column: Recent Expenses */}
+                {/* Right Column (Expense List) */}
                 <div className="expense-list">
                     <h3>Recent Expenses</h3>
                     <div className="expenses-container">
